@@ -1,0 +1,56 @@
+/* style.css */
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-container img {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  .hero-container p {
+    max-width: 300px;
+  }
+
+  .best-seller {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2em;
+  }
+
+  .why-choose-us {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .why-choose-us .why-choose-us-card {
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    margin-left: -2em;
+  }
+
+  .why-choose-us .why-choose-us-card img {
+    width: 7em;
+    height: 7em;
+  }
+}
+
+/* Tablet Styles */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  /* Add tablet-specific styles here */
+}
+
+/* Desktop Styles */
+@media screen and (min-width: 1025px) {
+  /* Add desktop-specific styles here */
+}
