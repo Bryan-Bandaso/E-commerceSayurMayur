@@ -1,0 +1,494 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "E-Commerce \"Sayur Mayur\" - API Documentation",
+    "description": "This is API Documentation of website \"Sayur Mayur\" made by 1st Group of FSW course wave 40 Binar Academy\n\nMembers:\n- Bryan Bandaso\n- Fauzah Ghaly Nugraha\n- Salma Afifah\n- Fajar Rakhman\n\nSome useful links:\n- [Link Repository](https://gitlab.com/fauzannugraha/f-fsw23001041-40-kelompok1-platinum)",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.11"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:5000/api/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Sayur Mayur",
+      "description": "Website E-Commerce"
+    },
+    {
+      "name": "admin",
+      "description": "Operations about admin"
+    },
+    {
+      "name": "user",
+      "description": "Operations about user"
+    },
+    {
+      "name": "product",
+      "description": "Operations about products and order"
+    }
+  ],
+  "paths": {
+    "/": {
+      "post": {
+        "tags": ["admin"],
+        "summary": "Login for Admin",
+        "operationId": "loginAdmin",
+        "parameters": [
+          {
+            "name": "username",
+            "description": "admin's username"
+          },
+          {
+            "name": "password",
+            "description": "admin's password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login Berhasil",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Login Gagal"
+          }
+        }
+      }
+    },
+    "/admin/customers": {
+      "get": {
+        "tags": ["admin"],
+        "summary": "View customers data",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "getViewCustomers",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error viewing customers"
+          }
+        }
+      }
+    },
+    "/admin/login": {
+      "get": {
+        "tags": ["admin"],
+        "summary": "View login page for admin",
+        "operationId": "getViewLogin",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/admin/dashboard": {
+      "get": {
+        "tags": ["admin"],
+        "summary": "View transaction data",
+        "operationId": "getViewDashboard",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "Error fetching transaction data"
+          }
+        }
+      }
+    },
+    "/admin/product": {
+      "get": {
+        "tags": ["admin"],
+        "summary": "View product data",
+        "operationId": "getViewProduct",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "Error fetching product data"
+          }
+        }
+      }
+    },
+    "/admin/edit/:id": {
+      "get": {
+        "tags": ["admin"],
+        "summary": "editing product data",
+        "operationId": "getUpdateProductID",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "product's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid id parameter. Must be an integer."
+          },
+          "404": {
+            "description": "Record not found"
+          },
+          "500": {
+            "description": "Error fetching product data"
+          }
+        }
+      }
+    },
+    "/admin/:id": {
+      "get": {
+        "tags": ["admin"],
+        "summary": "deleting product data",
+        "operationId": "deleteProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "product's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/newProduct": {
+      "post": {
+        "tags": ["admin"],
+        "summary": "creating new product",
+        "operationId": "createProduct",
+        "parameters": [
+          {
+            "name": "name_product",
+            "description": "product's name"
+          },
+          {
+            "name": "category",
+            "description": "product's category"
+          },
+          {
+            "name": "amount",
+            "description": "product's amount of items"
+          },
+          {
+            "name": "file image",
+            "description": "product's image file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Error creating the product."
+          },
+          "500": {
+            "description": "Error fetching product data"
+          }
+        }
+      }
+    },
+    "/edit/:id": {
+      "post": {
+        "tags": ["admin"],
+        "summary": "update product",
+        "operationId": "updateProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "product's id"
+          },
+          {
+            "name": "file name",
+            "description": "product's name"
+          },
+          {
+            "name": "file image",
+            "description": "product's image"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Record not found"
+          },
+          "500": {
+            "description": "Error updating product"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "get": {
+        "tags": ["user"],
+        "summary": "view login page for users",
+        "operationId": "getViewLogin",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/register": {
+      "get": {
+        "tags": ["user"],
+        "summary": "view registration page for users",
+        "operationId": "getViewRegist",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/login2": {
+      "post": {
+        "tags": ["user"],
+        "summary": "login for users",
+        "description": "user will input username and password in login page to log in",
+        "operationId": "loginUser",
+        "parameters": [
+          {
+            "name": "username",
+            "description": "user's username"
+          },
+          {
+            "name": "password",
+            "description": "user's password"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "401": {
+            "description": "Login gagal"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/register2": {
+      "post": {
+        "tags": ["user"],
+        "summary": "registration for users",
+        "description": "user will input name, phone number and address in register page to register",
+        "operationId": "createDataUser",
+        "parameters": [
+          {
+            "name": "namaUser",
+            "description": "user's name"
+          },
+          {
+            "name": "numberPhone",
+            "description": "user's phone number"
+          },
+          {
+            "name": "alamat",
+            "description": "user's address"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data berhasil dibuat"
+          },
+          "401": {
+            "description": "Invalid accountID. Account not found."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/home": {
+      "get": {
+        "tags": ["user"],
+        "summary": "view home page for users",
+        "operationId": "getViewProduct",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/shop": {
+      "get": {
+        "tags": ["user"],
+        "summary": "view products for users",
+        "operationId": "getAllData",
+        "responses": {
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "tags": ["user"],
+        "summary": "view profile page for users",
+        "operationId": "ViewProfile",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": ["user"],
+        "summary": "view profile page for users",
+        "operationId": "ViewProfile",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/cart": {
+      "get": {
+        "tags": ["product"],
+        "summary": "view product cart page for users",
+        "operationId": "ViewOrder",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/:id": {
+      "get": {
+        "tags": ["product"],
+        "summary": "show product by id",
+        "operationId": "getOrderbyID",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "id product"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/order": {
+      "post": {
+        "tags": ["product"],
+        "summary": "create order for users",
+        "operationId": "createOrder",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "id product"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/:id": {
+      "delete": {
+        "tags": ["product"],
+        "summary": "deleting product order by id for users",
+        "operationId": "deleteOrderbyID",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "id product in order page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/kategori": {
+      "get": {
+        "tags": ["product"],
+        "summary": "get products by category",
+        "operationId": "getProductbyKategori",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "id product"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Category is required"
+          },
+          "404": {
+            "description": "Products not found for the given category"
+          }
+        }
+      }
+    }
+  }
+}
